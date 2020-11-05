@@ -6,9 +6,7 @@ import ejs from 'ejs'
 
 const app = express()
 const serv = server.createServer(app)
-const servIO = io.serv
-
-io(serv)
+const servIO = io(serv)
 
 app.use(express.static(path.join(process.cwd(), 'public')))
 app.set('views', path.join(process.cwd(), 'public'))
@@ -17,6 +15,11 @@ app.set('view engine', 'html')
 
 app.use('/', (request, response) => {
   response.render('index.html')
+})
+
+servIO.on('connection', socket => {
+  console.log('xqdl')
+  console.log('connected', socket.id)
 })
 
 serv.listen(3000)
