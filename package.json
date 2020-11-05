@@ -5,6 +5,11 @@
   "repository": "https://github.com/DiegoPrestesGit/real-time-chat.git",
   "author": "Diego Prestes <diegoprestes.git@hotmail.com>",
   "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon ./src/server",
+    "raiz": "node --experimental-modules ./src/server.js"
+  },
   "dependencies": {
     "ejs": "^3.1.5",
     "express": "^4.17.1",

@@ -1,20 +1,22 @@
 import express from 'express'
+import server from 'http'
+import io from 'socket.io'
 import path from 'path'
-
-const express = require('express')
-const path = require('path')
+import ejs from 'ejs'
 
 const app = express()
-const server = require('http').createServer(app)
-const io = require('socket.io')(server)
+const serv = server.createServer(app)
+const servIO = io.serv
 
-app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'public'))
-app.engine('html', require('ejs').renderFile)
+io(serv)
+
+app.use(express.static(path.join(process.cwd(), 'public')))
+app.set('views', path.join(process.cwd(), 'public'))
+app.engine('html', ejs.renderFile)
 app.set('view engine', 'html')
 
 app.use('/', (request, response) => {
   response.render('index.html')
 })
 
-server.listen(3000)
+serv.listen(3000)
