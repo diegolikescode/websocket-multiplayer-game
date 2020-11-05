@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link rel="stylesheet" href="styles.css">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
-
-  <link rel="stylesheet" href="styles.css">
 
   <title>Real time chat</title>
 </head>
@@ -19,38 +19,10 @@
     <button type="submit">Send</button>
   </form>
 
+  <script type="text/javascript" src="scripts-jquery.js"></script>
+
   <script type="text/javascript">
-      var socket = io('http://localhost:3000')
 
-      function renderMessage(message) {
-        $('.messages').append(`<div class="message"><strong>${message.author}</strong>: ${message.msg}</div>`)
-      }
-
-      socket.on('receivedMessage', function(message) {
-        renderMessage(message)
-      })
-
-      socket.on('previousMessages', function(messages) {
-        for (message of messages) {
-          renderMessage(message)
-        }
-      })
-
-      $('#chat').submit(function(event) {
-        event.preventDefault()
-        var author = $('input[name=username]').val()
-        var msg = $('input[name=message]').val()
-
-        if(author.length && msg.length) {
-          var msgObject = {
-            author: author,
-            msg: msg
-          }
-
-          renderMessage(msgObject)
-          socket.emit('sendMessage', msgObject)
-        }
-      })
   </script>
 </body>
 </html>
