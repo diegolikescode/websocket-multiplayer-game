@@ -17,9 +17,17 @@ app.use('/', (request, response) => {
   response.render('index.html')
 })
 
+const messages = []
+
 servIO.on('connection', socket => {
-  console.log('xqdl')
   console.log('connected', socket.id)
+
+  socket.emit('previousMessages', messages)
+
+  socket.on('sendMessage', data => {
+    messages.push(data)
+    socket.broadcast.emit('receivedMessage', data)
+  })
 })
 
 serv.listen(3000)

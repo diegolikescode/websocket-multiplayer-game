@@ -21,6 +21,36 @@
 
   <script type="text/javascript">
       var socket = io('http://localhost:3000')
+
+      function renderMessage(message) {
+        $('.messages').append(`<div class="message"><strong>${message.author}</strong>: ${message.msg}</div>`)
+      }
+
+      socket.on('receivedMessage', function(message) {
+        renderMessage(message)
+      })
+
+      socket.on('previousMessages', function(messages) {
+        for (message of messages) {
+          renderMessage(message)
+        }
+      })
+
+      $('#chat').submit(function(event) {
+        event.preventDefault()
+        var author = $('input[name=username]').val()
+        var msg = $('input[name=message]').val()
+
+        if(author.length && msg.length) {
+          var msgObject = {
+            author: author,
+            msg: msg
+          }
+
+          renderMessage(msgObject)
+          socket.emit('sendMessage', msgObject)
+        }
+      })
   </script>
 </body>
 </html>
