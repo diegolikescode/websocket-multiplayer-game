@@ -7,20 +7,18 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "nodemon ./src/server",
-    "raiz": "node --experimental-modules ./src/server.js"
+    "start": "nodemon ./src/index",
+    "raiz": "node --experimental-modules ./src/index.js"
   },
   "dependencies": {
-    "ejs": "^3.1.5",
-    "express": "^4.17.1",
-    "socket.io": "^2.3.0",
+    "websocket": "^1.0.34"
+  },
+  "devDependencies": {
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1"
-  },
-  "devDependencies": {
+    "eslint-plugin-standard": "^4.0.1",
     "eslint": "6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
