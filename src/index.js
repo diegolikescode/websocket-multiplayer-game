@@ -1,7 +1,7 @@
 import http from 'http'
 import {server}from 'websocket'
 import crypto from 'crypto'
-import {createGame, open} from './handleEvents.js'
+import {createGame, joinGame, open, playRound} from './handleEvents.js'
 
 export const generateUUID = () => {
     const buffer = crypto.randomBytes(16)
@@ -39,39 +39,17 @@ wsServer.on('request', req => {
         }
 
         if (result.method === 'create') {
-            createGame(result)
+            createGame(result, conn)
         }
 
         if (result.method === 'join') {
-            const { clientID, gameID } = result
+            joinGame(result, conn)
 
-            const game = games[gameID]
-            if (game.clients.length >= 2) {
-                const con = clients[gameID].connection
-                con.send(JSON.stringify({error: 'this match already has 2 players'}))
-                return
-            }
-            const color = {'0': 'blue', '1': 'red'}[game.clients.length]
-            game.clients.push({
-                clientID,
-                color
-            })
-
-            const payload = {
-                method: 'join',
-                game
-            }
-
-            game.clients.forEach(cli => {
-                clients[cli.clientID].connection.send(JSON.stringify(payload))
-            })
         }
 
-        if (result.method === 'playerTurn') {
-
+        if (result.method === 'playRound') {
+            playRound(result, conn)
         }
     })
-
-    // handleRequest(conn)
 })
 
