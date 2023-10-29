@@ -51,9 +51,8 @@ export const createGame = (result, connection) => {
 }
 
 export const joinGame = (result, connection) => {
-    console.table(result)
-
     const game = games[result.gameID]
+
     if(!game) {
         connection.send(JSON.stringify({'message': 'game not found, create a new one!'}))
         return
@@ -78,24 +77,32 @@ export const playRound = (result, connection) => {
     const game = games[result.gameID]
 
     if(!game) {
-        connection.send(JSON.stringify({'message': 'game not found, create a new one!'}))
+        connection.send(JSON.stringify({
+            method: 'playRound',
+            'message': 'game not found, create a new one!',
+            games
+        }))
         return
     }
 
     game.fullMatrix = result.fullMatrix
     game.playRound = game.playerTurn === 'blue' ? 'red' : 'blue'
 
-    console.log('MY GEIMES')
-    console.log(games)
-    // games[result.gameID]
-
     const payload = {
         method: 'playRound',
-        game
+        game: result.gameID,
+        fullMatrix: result.fullMatrix
     }
+
+    connection.send(JSON.stringify(payload))
 
     game.clients.forEach(c => {
         clients[c.clientID].connection.send(JSON.stringify(payload))
     })
+}
+
+export const updateConnection = (clientID, connection) => {
+    if(clients[clientID])
+        clients[clientID].connection = connection
 }
 

@@ -1,7 +1,7 @@
 import http from 'http'
 import {server}from 'websocket'
 import crypto from 'crypto'
-import {createGame, joinGame, open, playRound} from './handleEvents.js'
+import {createGame, joinGame, open, playRound, updateConnection} from './handleEvents.js'
 
 export const generateUUID = () => {
     const buffer = crypto.randomBytes(16)
@@ -33,6 +33,7 @@ wsServer.on('request', req => {
 
     conn.on('message', msg => {
         const result = JSON.parse(msg.utf8Data)
+        updateConnection(result.clientID, conn)
 
         if(result.method === 'open') {
             open(result, conn)
