@@ -9,9 +9,14 @@ export const open = (result, connection) => {
         clients[clientID] = { connection }
     }
 
+    const userGame = Object.keys(games).find(g => {
+        return games[g].clients.find(c => c.clientID === clientID)
+    })
+
     const payload = {
         method: 'connect',
-        clientID
+        clientID,
+        game: games[userGame],
     }
 
     console.info('current clients connected', Object.keys(clients))
@@ -39,7 +44,7 @@ export const createGame = (result, connection) => {
         id: gameID,
         clients: [player],
         playerTurn: Math.random() * (10 - 1) + 1 > 5 ? 'blue' : 'red',
-        fullMatrix
+        fullMatrix,
     }
 
     const payload = {
@@ -90,7 +95,7 @@ export const playRound = (result, connection) => {
 
     const payload = {
         method: 'playRound',
-        game: result.gameID,
+        game,
         fullMatrix: result.fullMatrix
     }
 
