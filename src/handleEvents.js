@@ -111,3 +111,15 @@ export const updateConnection = (clientID, connection) => {
         clients[clientID].connection = connection
 }
 
+export const exitGame = ({ clientID }, connection) => {
+    games = Object.keys(games).map(g => {
+        games[g]
+    })
+
+    const payload = {
+        method: 'exitGame',
+        success: true
+    }
+
+}
+
