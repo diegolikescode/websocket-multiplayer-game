@@ -2,16 +2,14 @@
   "name": "websocket-multiplayer-game",
   "version": "1.0.1",
   "main": "./src/index.js",
-  "bin": {
-        "npx-command": "./npx-command.js"
-    },
+  "bin": "./npx-command.js",
   "repository": "https://github.com/DiegoPrestesGit/real-time-chat.git",
   "author": "Diego Prestes <diegoprestes.git@hotmail.com>",
   "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "nodemon ./src/index",
-    "start": "node --experimental-modules ./src/index.js"
+    "start": "node --experimental-modules ./bundle/index.cjs"
   },
   "dependencies": {
     "webpack-cli": "^5.1.4",
