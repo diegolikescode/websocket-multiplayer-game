@@ -1,14 +1,15 @@
 {
-  "name": "real-time-chat",
+  "name": "websocket-multiplayer-game",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/index.js",
+  "bin": "./src/index.js",
   "repository": "https://github.com/DiegoPrestesGit/real-time-chat.git",
   "author": "Diego Prestes <diegoprestes.git@hotmail.com>",
   "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "nodemon ./src/index",
-    "raiz": "node --experimental-modules ./src/index.js"
+    "start": "node --experimental-modules ./src/index.js"
   },
   "dependencies": {
     "websocket": "^1.0.34"

@@ -1,2 +1,4 @@
-# real-time-chat
-Simplistic project used to learn Socket.IO
+# WEBSOCKET MULTIPLAYER GAME
+
+## MADE TO SHOWCASE WHAT THE NAME SAYS
+
