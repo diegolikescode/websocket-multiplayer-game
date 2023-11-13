@@ -1,6 +1,6 @@
 {
   "name": "websocket-multiplayer-game",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./src/index.js",
   "bin": {
         "npx-command": "./npx-command.js"
