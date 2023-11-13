@@ -1,6 +1,6 @@
 {
   "name": "websocket-multiplayer-game",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./src/index.js",
   "bin": "./npx-command.js",
   "repository": "https://github.com/DiegoPrestesGit/real-time-chat.git",
