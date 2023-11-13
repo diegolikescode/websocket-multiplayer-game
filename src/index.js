@@ -1,7 +1,7 @@
 import http from 'http'
 import {server}from 'websocket'
 import crypto from 'crypto'
-import {createGame, joinGame, open, playRound, updateConnection, exitGame} from './handleEvents.js'
+import {createGame, joinGame, open, playRound, updateConnection, exitGame, winner} from './handleEvents.js'
 
 export const generateUUID = () => {
     const buffer = crypto.randomBytes(16)
@@ -54,6 +54,10 @@ wsServer.on('request', req => {
 
         if (result.method === 'exitGame') {
             exitGame(result, conn)
+        }
+
+        if (result.method === 'winner') {
+            winner(result, conn)
         }
     })
 })

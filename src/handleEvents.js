@@ -91,7 +91,7 @@ export const playRound = (result, connection) => {
     }
 
     game.fullMatrix = result.fullMatrix
-    game.playRound = game.playerTurn === 'blue' ? 'red' : 'blue'
+    game.playerTurn = game.playerTurn === 'blue' ? 'red' : 'blue'
 
     const payload = {
         method: 'playRound',
@@ -112,14 +112,30 @@ export const updateConnection = (clientID, connection) => {
 }
 
 export const exitGame = ({ clientID }, connection) => {
-    games = Object.keys(games).map(g => {
-        games[g]
-    })
+    for (const gameID in games) {
+        let gameData = games[gameID]
+        gameData.clients = gameData.clients.filter(c => c.clientID !== clientID)
+    }
 
     const payload = {
         method: 'exitGame',
-        success: true
+        success: true,
     }
 
+    connection.send(JSON.stringify(payload))
+    return
+}
+
+export const winner = ({ clientID, gameID, ballColor }, _) => {
+    console.log(clientID, gameID)
+
+    const payload = {
+        method: 'winner',
+        winnerColor: ballColor
+    }
+
+    games[gameID].clients.forEach(c => {
+        clients[c.clientID].connection.send(JSON.stringify(payload))
+    })
 }
 
